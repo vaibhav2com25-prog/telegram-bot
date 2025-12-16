@@ -1,36 +1,27 @@
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import os
-import telebot
-from telebot import types
 
 BOT_TOKEN = os.getenv("8537887755:AAGePD_nlARncv3WY4HMDRMfCVAMqnrCh6I")
-bot = telebot.TeleBot(BOT_TOKEN)
 
-@bot.message_handler(commands=['start'])
-def start(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [
+            InlineKeyboardButton("🔥 Get Premium", url="https://example.com")
+        ],
+        [
+            InlineKeyboardButton("📞 Support", callback_data="support")
+        ]
+    ]
 
-    markup.add(
-        types.KeyboardButton("🇮🇳 India Number Info"),
-        types.KeyboardButton("🚗 Vehicle Info")
-    )
-    markup.add(
-        types.KeyboardButton("🆔 Aadhaar Info"),
-        types.KeyboardButton("👨‍👩‍👧 Aadhaar to Family Info")
-    )
-    markup.add(
-        types.KeyboardButton("💳 My Credits"),
-        types.KeyboardButton("📞 Contact Admin")
-    )
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
-    bot.send_message(
-        message.chat.id,
-        "✅ Choose an option below to begin!",
-        reply_markup=markup
+    await update.message.reply_text(
+        "What can this bot do?\n\nClick button below 👇",
+        reply_markup=reply_markup
     )
 
-@bot.message_handler(func=lambda message: True)
-def menu(message):
-    bot.send_message(message.chat.id, "✅ Button received")
+app = ApplicationBuilder().token(BOT_TOKEN).build()
+app.add_handler(CommandHandler("start", start))
 
-bot.infinity_polling()
-  
+app.run_polling()

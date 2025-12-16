@@ -6,12 +6,8 @@ BOT_TOKEN = os.getenv("8537887755:AAGePD_nlARncv3WY4HMDRMfCVAMqnrCh6I")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [
-            InlineKeyboardButton("🔥 Get Premium", url="https://example.com")
-        ],
-        [
-            InlineKeyboardButton("📞 Support", callback_data="support")
-        ]
+        [InlineKeyboardButton("🔥 Get Premium", url="https://example.com")],
+        [InlineKeyboardButton("📞 Support", url="https://t.me/yourusername")]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -24,4 +20,5 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 app = ApplicationBuilder().token(BOT_TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 
+print("Bot started...")
 app.run_polling()

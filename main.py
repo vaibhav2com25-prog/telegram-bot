@@ -1,24 +1,25 @@
+import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-import os
 
 BOT_TOKEN = os.getenv("8537887755:AAGePD_nlARncv3WY4HMDRMfCVAMqnrCh6I")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🔥 Get Premium", url="https://example.com")],
-        [InlineKeyboardButton("📞 Support", url="https://t.me/yourusername")]
+        [InlineKeyboardButton("🔥 Get Free Premium", url="https://ordershunter.ru/premium_gift_s")]
     ]
-
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text(
-        "What can this bot do?\n\nClick button below 👇",
+        "Get free telegram premium ❤️",
         reply_markup=reply_markup
     )
 
-app = ApplicationBuilder().token(BOT_TOKEN).build()
-app.add_handler(CommandHandler("start", start))
+def main():
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.run_polling()
 
-print("Bot started...")
-app.run_polling()
+if __name__ == "__main__":
+    main()
+    
